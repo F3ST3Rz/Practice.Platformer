@@ -6,7 +6,6 @@ public class Mover : MonoBehaviour
     private const string Horizontal = nameof(Horizontal);
     private const string Speed = nameof(Speed);
 
-
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _multiplierMoveSpeed;
     [SerializeField] private float _jumpForce;

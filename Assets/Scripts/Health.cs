@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Health : MonoBehaviour
 {
@@ -7,11 +8,13 @@ public class Health : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private float _maxHealth;
 
-    private float _health;
+    private float _currentHealth;
+
+    public event Action<float> LifeChanged;
 
     private void Start()
     {
-        _health = _maxHealth;
+        _currentHealth = _maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,15 +29,19 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _animator.SetTrigger(Damage);
-        _health -= damage;
+        _currentHealth -= damage;
+        float currentHealthForBar = _currentHealth / _maxHealth;
+        LifeChanged?.Invoke(currentHealthForBar);
 
-        if (_health <= 0)
+        if (_currentHealth <= 0)
             Destroy(gameObject);
     }
 
     private void Heal(float countHeal)
     {
-        _health += countHeal;
-        _health = _health > _maxHealth ? _maxHealth : _health;
+        _currentHealth += countHeal;
+        _currentHealth = _currentHealth > _maxHealth ? _maxHealth : _currentHealth;
+        float currentHealthForBar = _currentHealth / _maxHealth;
+        LifeChanged?.Invoke(currentHealthForBar);
     }
 }
