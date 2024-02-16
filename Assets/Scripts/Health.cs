@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Heal(float countHeal)
+    public void Heal(float countHeal)
     {
         _currentHealth += countHeal;
         _currentHealth = _currentHealth > _maxHealth ? _maxHealth : _currentHealth;
