@@ -36,7 +36,7 @@ public class StateStalker : MonoBehaviour
             Vector3 target = _target.position + Vector3.up * yOffset;
             transform.position = Vector3.MoveTowards(transform.position,
                 target, _speedMoveStalkering * Time.deltaTime);
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return null;
         }
 
         _isStlakering = false;

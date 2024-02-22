@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 public class VampirismSkill : MonoBehaviour
 {
-    [SerializeField] float _skillRange;
-    [SerializeField] LayerMask _enemyMask;
+    [SerializeField] private float _skillRange;
+    [SerializeField] private LayerMask _enemyMask;
     [SerializeField] private float _skillDamage;
     [SerializeField] private float _timeSkillActive;
     [SerializeField] private float _timePeriodicSkill;
@@ -33,6 +33,7 @@ public class VampirismSkill : MonoBehaviour
 
     private IEnumerator SkillActive()
     {
+        WaitForSeconds wait = new WaitForSeconds(_timePeriodicSkill);
         float currentTime = 0f;
         float currenTimeCoolDawnForBar;
         _isActiveSkill = true;
@@ -58,7 +59,7 @@ public class VampirismSkill : MonoBehaviour
             currentTime += _timePeriodicSkill;
             currenTimeCoolDawnForBar = currentTime / _coolDawnTimeSkillVamprism;
             SkillChanged?.Invoke(currenTimeCoolDawnForBar);
-            yield return new WaitForSeconds(_timePeriodicSkill);
+            yield return wait;
         }
 
         _isActiveSkill = false;

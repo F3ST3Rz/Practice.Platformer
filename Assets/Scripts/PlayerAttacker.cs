@@ -5,9 +5,9 @@ public class PlayerAttacker : MonoBehaviour
     private const string Attack = nameof(Attack);
 
     [SerializeField] private Animator _animator;
-    [SerializeField] Transform _attackPoint;
-    [SerializeField] float _attackRange;
-    [SerializeField] LayerMask _enemyMask;
+    [SerializeField] private Transform _attackPoint;
+    [SerializeField] private float _attackRange;
+    [SerializeField] private LayerMask _enemyMask;
     [SerializeField] private float _attackDamage;
 
     private void Update()

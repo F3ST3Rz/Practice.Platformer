@@ -12,8 +12,8 @@ public class Mover : MonoBehaviour
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private Animator _animator;
     [SerializeField] private Transform _groundChecker;
-    [SerializeField] float _groundCheckerRange;
-    [SerializeField] LayerMask _groundMask;
+    [SerializeField] private float _groundCheckerRange;
+    [SerializeField] private LayerMask _groundMask;
 
     private void Update()
     {
