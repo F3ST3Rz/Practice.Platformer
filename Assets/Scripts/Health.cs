@@ -17,15 +17,6 @@ public class Health : MonoBehaviour
         _currentHealth = _maxHealth;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out Heal heal))
-        {
-            Heal(heal.AmountTreatment);
-            Destroy(heal.gameObject);
-        }
-    }
-
     public void TakeDamage(float damage)
     {
         _animator.SetTrigger(Damage);

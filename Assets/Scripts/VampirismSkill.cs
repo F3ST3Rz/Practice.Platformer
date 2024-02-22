@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using System;
 
+[RequireComponent(typeof(Health))]
 public class VampirismSkill : MonoBehaviour
 {
     [SerializeField] float _skillRange;
@@ -13,15 +14,21 @@ public class VampirismSkill : MonoBehaviour
     [SerializeField] private float _coolDawnTimeSkillVamprism;
 
     private bool _isActiveSkill = false;
+    private Health _health;
 
     public event Action<float> SkillChanged;
+
+    private void Awake()
+    {
+        _health = GetComponent<Health>();
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F) && !_isActiveSkill)
         {
             StartCoroutine(SkillActive());
-        }        
+        }
     }
 
     private IEnumerator SkillActive()
@@ -36,10 +43,15 @@ public class VampirismSkill : MonoBehaviour
             {
                 Collider2D hitEnemy = Physics2D.OverlapCircle(transform.position, _skillRange, _enemyMask);
 
-                if (hitEnemy)
+                if (hitEnemy != null)
                 {
-                    hitEnemy.GetComponent<Health>().TakeDamage(_skillDamage);
-                    gameObject.GetComponent<Health>().Heal(_skillDamage * _percentVampirism);
+                    Health healthScript = hitEnemy.GetComponent<Health>();
+
+                    if (healthScript != null)
+                    {
+                        healthScript.TakeDamage(_skillDamage);
+                        _health.Heal(_skillDamage * _percentVampirism);
+                    }
                 }
             }
 

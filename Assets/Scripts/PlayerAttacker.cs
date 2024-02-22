@@ -19,9 +19,19 @@ public class PlayerAttacker : MonoBehaviour
     private void Attacking()
     {
         _animator.SetTrigger(Attack);
+
         Collider2D hitEnemy = Physics2D.OverlapCircle(_attackPoint.position, _attackRange, _enemyMask);
 
-        if (hitEnemy)
-            hitEnemy.GetComponent<Health>().TakeDamage(_attackDamage);
+        if (hitEnemy != null)
+        {
+            Health healthScript = hitEnemy.GetComponent<Health>();
+
+            if (healthScript != null)
+            {
+                healthScript.TakeDamage(_attackDamage);
+            }
+        }
     }
+
+
 }
